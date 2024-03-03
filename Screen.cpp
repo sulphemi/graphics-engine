@@ -3,31 +3,26 @@ using namespace std;
 
 class Screen {
 private:
+    /* the underlying array of pixel values. */
+    /* note that the x-axis extends left->right */
+    /* and the y-axis extends top->down */
+    /* img[y][x] to access the pixel at (x, y) */
     int **img;
     int height;
     int width;
 
-    /* Checks if point is valid */
+    /* checks if point is valid (within bounds of img) */
     inline bool in_bounds(int x, int y) {
         return (x >= 0) && (x < width) && (y >= 0) && (y < height);
     }
 
-    /* Converts three integral rgb values to the color's 32 bit integer representation */
-    inline int rgb(int r, int g, int b) {
-        return (r << 16) | (g << 8) | (b << 0);
-    }
+    /* converts three integral rgb values to the color's 32 bit integer representation */
+    inline int rgb(int r, int g, int b) { return (r << 16) | (g << 8) | (b << 0); }
 
-    inline int r(int c) {
-        return (c >> 16) & 0xFF;
-    }
-
-    inline int g(int c) {
-        return (c >> 8) & 0xFF;
-    }
-
-    inline int b(int c) {
-        return (c >> 0) & 0xFF;
-    }
+    /* vice versa */
+    inline int r(int c) { return (c >> 16) & 0xFF; }
+    inline int g(int c) { return (c >> 8) & 0xFF; }
+    inline int b(int c) { return (c >> 0) & 0xFF; }
 
 public:
     Screen(int width, int height) {
@@ -46,6 +41,7 @@ public:
         delete[] img;
     }
 
+    /* changes the color of the pixel at (x, y) to color c */
     bool plot(int x, int y, int c) {
         if (in_bounds(x, y)) {
             img[y][x] = c;
@@ -55,6 +51,7 @@ public:
         }
     }
 
+    /* ditto but for three rgb values */
     bool plot(int x, int y, int r, int g, int b) {
         return plot(x, y, rgb(r, g, b));
     }
@@ -84,12 +81,3 @@ public:
         to_file.close();
     }
 };
-
-int main() {
-    Screen a(2, 3);
-    cout << a.plot(0, 0, 1, 0, 0) << endl;
-    cout << a.plot(0, 1, 1, 0, 1) << endl;
-    cout << a.plot(1, 1, 1, 1, 1) << endl;
-    cout << a.plot(1, 2, 1, 1, 2) << endl;
-    a.write_to_ppm("aaa.ppm");
-}
