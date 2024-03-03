@@ -20,12 +20,12 @@ private:
     inline bool in_bounds(int x, int y);
 
     /* converts three integral rgb values to the color's 32 bit integer representation */
-    static inline int rgb(int r, int g, int b);
+    static inline int rgb(int r, int g, int b) { return (r << 16) | (g << 8) | (b << 0); }
 
     /* vice versa */
-    static inline int r(int c);
-    static inline int g(int c);
-    static inline int b(int c);
+    static inline int r(int c) { return (c >> 16) & 0xFF; }
+    static inline int g(int c) { return (c >> 8) & 0xFF; }
+    static inline int b(int c) { return (c >> 0) & 0xFF; }
 
 public:
     /* creates an instance of screen with size width, height */

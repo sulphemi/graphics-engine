@@ -20,7 +20,7 @@ public:
 
     /* add [a, b, c, d] to the matrix as a column or [x, y, z, 1]*/
     void add_column(double a, double b, double c, double d);
-    inline void add_point(double x, double y, double z);
+    inline void add_point(double x, double y, double z) { add_column(x, y, z, 1); }
 
     /* multiply other by this matrix and set this matrix to result */
     /* ie. "this = other * this" (note ordering) */

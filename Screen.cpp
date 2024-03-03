@@ -7,14 +7,6 @@ bool Screen::in_bounds(int x, int y) {
     return (x >= 0) && (x < width) && (y >= 0) && (y < height);
 }
 
-/* converts three integral rgb values to the color's 32 bit integer representation */
-int Screen::rgb(int r, int g, int b) { return (r << 16) | (g << 8) | (b << 0); }
-
-/* vice versa */
-int Screen::r(int c) { return (c >> 16) & 0xFF; }
-int Screen::g(int c) { return (c >> 8) & 0xFF; }
-int Screen::b(int c) { return (c >> 0) & 0xFF; }
-
 /* creates an instance of screen with size width, height */
 Screen::Screen(int width, int height) {
     this->width = width;

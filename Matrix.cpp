@@ -16,8 +16,6 @@ void Matrix::add_column(double a, double b, double c, double d) {
     m.push_back(col);
 }
 
-void Matrix::add_point(double x, double y, double z) { add_column(x, y, z, 1); }
-
 /* multiply other by this matrix and set this matrix to result */
 /* ie. "this = other * this" (note ordering) */
 /* only accepts 4x4 arrays for other */
