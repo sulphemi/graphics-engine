@@ -85,6 +85,7 @@ public:
     }
 
     /* draws a line from (x1, y) to (x2, y) */
+    /* accepts all coordinates even if they are not inbounds */
     void horizontal_line(int x1, int x2, int y, int c) {
         if (x1 > x2) swap(x1, x2);
         for (int i = x1; i <= x2; ++i) {
@@ -93,6 +94,7 @@ public:
     }
 
     /* draws a line from (x, y1) to (x, y2) */
+    /* accepts all coordinates even if they are not inbounds */
     void vertical_line(int x, int y1, int y2, int c) {
         if (y1 > y2) swap(y1, y2);
         for (int i = y1; i <= y2; ++i) {
@@ -101,7 +103,9 @@ public:
     }
 
     /* draws a line from (x1, y1) to (x2, y2) */
+    /* accepts all coordinates even if they are not inbounds */
     void line(int x1, int y1, int x2, int y2, int c) {
+        // handle zero and undefined slope cases
         if (y1 == y2) {
             horizontal_line(x1, x2, y1, c);
             return;
@@ -118,10 +122,72 @@ public:
             swap(y1, y2);
         }
 
-        // to be implemented
-        // positive steep slope
-        // positive shallow slope
-        // negative shallow slope
-        // negative steep slope
+        int x = x1;
+        int y = y1;
+
+        // A / B is the slope, multiply by both 2 to avoid floating point
+        int d;
+        int A = (y2 - y1) * 2;
+        int B = (x2 - x1) * 2;
+
+        if (abs(x2 - x1) >= abs(y2 - y1)) {
+            // bottom-heavy/shallow slope
+            if (A > 0) {
+                // shallow negative slope
+                d = A - B / 2;
+                while (x < x2) {
+                    plot(x, y, c);
+                    if (d > 0) {
+                        y += 1;
+                        d -= B;
+                    }
+                    x++;
+                    d += A;
+                }
+                plot(x2, y2, c);
+            } else {
+                // shallow positive slope
+                d = A + B / 2;
+                while (x < x2) {
+                    plot(x, y, c);
+                    if (d < 0) {
+                        y -= 1;
+                        d += B;
+                    }
+                    x++;
+                    d += A;
+                }
+                plot(x2, y2, c);
+            }
+        } else {
+            // top-heavy/steep slope
+            if (A > 0) {
+                // steep negative slope
+                d = A / 2 - B;
+                while (y < y2) {
+                    plot(x, y, c);
+                    if (d < 0) {
+                        x += 1;
+                        d += A;
+                    }
+                    y++;
+                    d -= B;
+                }
+                plot(x2, y2, c);
+            } else {
+                // steep positive slope
+                d = A / 2 + B;
+                while (y > y2) {
+                    plot(x, y, c);
+                    if (d > 0) {
+                        x += 1;
+                        d += A;
+                    }
+                    y--;
+                    d += B;
+                }
+                plot(x2, y2, c);
+            }
+        }
     }
 };
