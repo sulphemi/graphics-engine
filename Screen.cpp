@@ -83,4 +83,23 @@ public:
         }
         to_file.close();
     }
+
+    /* draws a line from (x1, y) to (x2, y) */
+    void horizontal_line(int x1, int x2, int y, int c) {
+        // to be implemented
+    }
+
+    /* draws a line from (x, y1) to (x, y2) */
+    void vertical_line(int x, int y1, int y2, int c) {
+        // to be implemented
+    }
+
+    /* draws a line from (x1, y1) to (x2, y2) */
+    void line(int x1, int y1, int x2, int y2, int c) {
+        // to be implemented
+        // positive steep slope
+        // positive shallow slope
+        // negative shallow slope
+        // negative steep slope
+    }
 };
