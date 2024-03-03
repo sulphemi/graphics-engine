@@ -86,16 +86,38 @@ public:
 
     /* draws a line from (x1, y) to (x2, y) */
     void horizontal_line(int x1, int x2, int y, int c) {
-        // to be implemented
+        if (x1 > x2) swap(x1, x2);
+        for (int i = x1; i <= x2; ++i) {
+            plot(i, y, c);
+        }
     }
 
     /* draws a line from (x, y1) to (x, y2) */
     void vertical_line(int x, int y1, int y2, int c) {
-        // to be implemented
+        if (y1 > y2) swap(y1, y2);
+        for (int i = y1; i <= y2; ++i) {
+            plot(x, i, c);
+        }
     }
 
     /* draws a line from (x1, y1) to (x2, y2) */
     void line(int x1, int y1, int x2, int y2, int c) {
+        if (y1 == y2) {
+            horizontal_line(x1, x2, y1, c);
+            return;
+        }
+
+        if (x1 == x2) {
+            vertical_line(x1, y1, y2, c);
+            return;
+        }
+
+        // swap such that the first point is the leftmost point
+        if (x1 > x2) {
+            swap(x1, x2);
+            swap(y1, y2);
+        }
+
         // to be implemented
         // positive steep slope
         // positive shallow slope
