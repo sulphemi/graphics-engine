@@ -1,5 +1,8 @@
-#include "Screen.cpp"
-#include "Matrix.cpp"
+#include "Screen.h"
+#include "Matrix.h"
+#include "EdgeMatrix.h"
+
+using namespace std;
 
 inline int rgb(int r, int g, int b) { return (r << 16) | (g << 8) | (b << 0); }
 void screen_test() {
@@ -26,39 +29,30 @@ void screen_test() {
 }
 
 int main() {
-    Matrix mat1;
-    mat1.add_column(1, 2, 3, 4);
-    mat1.add_column(5, 6, 7, 8);
-    mat1.add_column(9, 10, 11, 12);
-    mat1.add_column(13, 14, 15, 16);
+    Screen a(50, 50);
+    EdgeMatrix mat;
+    mat.add_edge(0, 0, 0, 50, 50, 0);
+    mat.add_edge(25, 25, 10, 10, 10, 10);
 
-    Matrix mat2;
-    mat2.add_column(1, 0, 0, 0);
-    mat2.add_column(0, 2, 0, 0);
-    mat2.add_column(0, 0, 3, 0);
-    mat2.add_column(0, 0, 7, 4);
+    cout << mat.to_string() << endl;
 
-    cout << "Original Matrix:" << endl;
-    for (const auto& col : mat1.m) {
-        for (const auto& val : col) {
-            cout << val << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
+    cout << "reached here" << endl;
 
-    mat1.multiply(mat2);
+    mat.draw_edges(a, rgb(250, 250, 250));
 
-    cout << "Multiplied Matrix:" << endl;
-    for (const auto& col : mat1.m) {
-        for (const auto& val : col) {
-            cout << val << " ";
-        }
-        cout << endl;
-    }
+    cout << "also here" << endl;
+    a.write_to_ppm("aaa.ppm");
+    return 0;
+}
 
-    cout << "to string:" << endl;
-    cout << mat1.to_string() << endl;
-
+int _main() {
+    Screen a(50, 50);
+    int c = rgb(250, 250, 250);
+    a.line(0, 0, 50, 50, c);
+    a.line(0, 10, 25, 25, c);
+    EdgeMatrix mat;
+    mat.draw_edges(a, c);
+    cout << "reached here" << endl;
+    a.write_to_ppm("aaa.ppm");
     return 0;
 }
