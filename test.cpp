@@ -1,7 +1,8 @@
 #include "Screen.cpp"
+#include "Matrix.cpp"
 
 inline int rgb(int r, int g, int b) { return (r << 16) | (g << 8) | (b << 0); }
-int main() {
+void screen_test() {
     Screen a(50, 50);
 
     // axes
@@ -22,4 +23,42 @@ int main() {
     a.line(25, 25, 40, 50, rgb(0, 80, 0)); // dark green
     a.write_to_ppm("aaa.ppm");
     // looks just like my graphing calculator LOL
+}
+
+int main() {
+    Matrix mat1;
+    mat1.add_column(1, 2, 3, 4);
+    mat1.add_column(5, 6, 7, 8);
+    mat1.add_column(9, 10, 11, 12);
+    mat1.add_column(13, 14, 15, 16);
+
+    Matrix mat2;
+    mat2.add_column(1, 0, 0, 0);
+    mat2.add_column(0, 2, 0, 0);
+    mat2.add_column(0, 0, 3, 0);
+    mat2.add_column(0, 0, 7, 4);
+
+    cout << "Original Matrix:" << endl;
+    for (const auto& col : mat1.m) {
+        for (const auto& val : col) {
+            cout << val << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+    mat1.multiply(mat2);
+
+    cout << "Multiplied Matrix:" << endl;
+    for (const auto& col : mat1.m) {
+        for (const auto& val : col) {
+            cout << val << " ";
+        }
+        cout << endl;
+    }
+
+    cout << "to string:" << endl;
+    cout << mat1.to_string() << endl;
+
+    return 0;
 }
