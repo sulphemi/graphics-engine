@@ -19,4 +19,22 @@ public:
     }
 
     inline void add_point(double x, double y, double z) { add_point(x, y, z, 1); }
+
+    /* multiply other by this matrix and set this matrix to result */
+    /* ie. "this = other * this" (note ordering) */
+    /* only accepts 4x4 arrays for other */
+    /* but should in theory work for all valid matrix multiplications */
+    void multiply(Matrix other) {
+        for (int i = 0; i < m.size(); ++i) {
+            column new_col;
+            for (int r = 0; r < COL_SIZE; ++r) {
+                double new_val = 0;
+                for (int c = 0; c < COL_SIZE; ++c) {
+                    new_val += other.m[c][r] * m[i][r];
+                }
+                new_col[r] = new_val;
+            }
+            m[i] = new_col;
+        }
+    }
 };
