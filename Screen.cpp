@@ -1,7 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
+#include "Screen.h"
 using namespace std;
 
 class Screen {

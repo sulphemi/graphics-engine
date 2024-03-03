@@ -1,7 +1,5 @@
-#include <bits/stdc++.h>
+#include "Matrix.h"
 using namespace std;
-constexpr int COL_SIZE = 4; // for our purposes we will probably only deal with matrices of height 4
-using column = array<double, COL_SIZE>;
 
 class Matrix {
 public:
