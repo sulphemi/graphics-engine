@@ -1,10 +1,9 @@
 #include "Screen.cpp"
 
+inline int rgb(int r, int g, int b) { return (r << 16) | (g << 8) | (b << 0); }
 int main() {
-    Screen a(2, 3);
-    cout << a.plot(0, 0, 1, 0, 0) << endl;
-    cout << a.plot(0, 1, 1, 0, 1) << endl;
-    cout << a.plot(1, 1, 1, 1, 1) << endl;
-    cout << a.plot(1, 2, 1, 1, 2) << endl;
+    Screen a(50, 50);
+    a.vertical_line(25, 0, 50, rgb(100, 100, 0));
+    a.horizontal_line(0, 50, 25, rgb(0, 100, 100));
     a.write_to_ppm("aaa.ppm");
 }
