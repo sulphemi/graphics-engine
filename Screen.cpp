@@ -28,6 +28,7 @@ private:
     inline int b(int c) { return (c >> 0) & 0xFF; }
 
 public:
+    /* creates an instance of screen with size width, height */
     Screen(int width, int height) {
         this->width = width;
         this->height = height;
@@ -45,6 +46,7 @@ public:
     }
 
     /* changes the color of the pixel at (x, y) to color c */
+    /* returns true if successful (ie x, y are valid), false if not */
     bool plot(int x, int y, int c) {
         if (in_bounds(x, y)) {
             img[y][x] = c;
@@ -59,19 +61,18 @@ public:
         return plot(x, y, rgb(r, g, b));
     }
 
+    /* writes current image contents to ppm file */
     void write_to_ppm(string file) {
         ofstream to_file(file);
         if (! to_file.is_open()) {
             cerr << "error opening file! " << file << endl;
             return;
         }
-
-        // header
+        /* ppm header */
         to_file << "P3" << '\n';
         to_file << width << " " << height << '\n';
         to_file << "255" << '\n';
-
-        // contents
+        /* contents */
         for (int i = 0; i < height; ++i) {
             for (int k = 0; k < width; ++k){
                 to_file << r(img[i][k]) << ' ';
@@ -80,7 +81,6 @@ public:
             }
             to_file << '\n';
         }
-
         to_file.close();
     }
 };
