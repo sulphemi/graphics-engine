@@ -40,7 +40,7 @@ public:
             for (int r = 0; r < COL_SIZE; ++r) {
                 double new_val = 0;
                 for (int c = 0; c < COL_SIZE; ++c) {
-                    new_val += other.m[c][r] * m[i][r];
+                    new_val += other.m[c][r] * m[i][c];
                 }
                 new_col[r] = new_val;
             }
