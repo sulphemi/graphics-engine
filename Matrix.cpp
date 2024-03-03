@@ -16,19 +16,19 @@ public:
     /* returns a new 4x4 identity matrix */
     static Matrix identity() {
         Matrix id;
-        id.add_point(1, 0, 0, 0);
-        id.add_point(0, 1, 0, 0);
-        id.add_point(0, 0, 1, 0);
-        id.add_point(0, 0, 0, 1);
+        id.add_column(1, 0, 0, 0);
+        id.add_column(0, 1, 0, 0);
+        id.add_column(0, 0, 1, 0);
+        id.add_column(0, 0, 0, 1);
         return id;
     }
 
-    void add_point(double a, double b, double c, double d) {
+    void add_column(double a, double b, double c, double d) {
         column col = {a, b, c, d};
         m.push_back(col);
     }
 
-    inline void add_point(double x, double y, double z) { add_point(x, y, z, 1); }
+    inline void add_point(double x, double y, double z) { add_column(x, y, z, 1); }
 
     /* multiply other by this matrix and set this matrix to result */
     /* ie. "this = other * this" (note ordering) */
