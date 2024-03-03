@@ -47,4 +47,17 @@ public:
             m[i] = new_col;
         }
     }
+
+    /* return matrix as a string, mainly for debugging */
+    /* only accepts Nx4 matrices*/
+    string to_string() {
+        stringstream s1, s2, s3, s4;
+        for (column col : m) {
+            s1 << col[0] << " ";
+            s2 << col[1] << " ";
+            s3 << col[2] << " ";
+            s4 << col[3] << " ";
+        }
+        return s1.str() + "\n" + s2.str() + "\n" + s3.str() + "\n" + s4.str();
+    }
 };
