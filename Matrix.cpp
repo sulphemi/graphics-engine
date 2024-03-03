@@ -13,6 +13,16 @@ public:
 
     }
 
+    /* returns a new 4x4 identity matrix */
+    static Matrix identity() {
+        Matrix id;
+        id.add_point(1, 0, 0, 0);
+        id.add_point(0, 1, 0, 0);
+        id.add_point(0, 0, 1, 0);
+        id.add_point(0, 0, 0, 1);
+        return id;
+    }
+
     void add_point(double a, double b, double c, double d) {
         column col = {a, b, c, d};
         m.push_back(col);
