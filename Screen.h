@@ -32,6 +32,9 @@ public:
     Screen(int width, int height);
     ~Screen();
 
+    /* clears everything in img */
+    void clear();
+
     /* changes the color of the pixel at (x, y) to color c */
     /* returns true if successful (ie x, y are valid), false if not */
     bool plot(int x, int y, int c);

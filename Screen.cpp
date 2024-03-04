@@ -18,10 +18,19 @@ Screen::Screen(int width, int height) {
 }
 
 Screen::~Screen() {
-    for (int i = 0; i < width; ++i) {
+    for (int i = 0; i < height; ++i) {
         delete[] img[i];
     }
     delete[] img;
+}
+
+/* clears everything in img, setting it back to zeroes */
+void Screen::clear() {
+    for (int i = 0; i < height; ++i) {
+        for (int k = 0; k < width; ++k) {
+            img[i][k] = 0;
+        }
+    }
 }
 
 /* changes the color of the pixel at (x, y) to color c */
