@@ -1,6 +1,7 @@
 #include "Screen.h"
 #include "Matrix.h"
 #include "EdgeMatrix.h"
+#include "TransformMatrix.h"
 
 using namespace std;
 
@@ -34,25 +35,22 @@ int main() {
     mat.add_edge(0, 0, 0, 50, 50, 0);
     mat.add_edge(25, 25, 10, 10, 10, 10);
 
-    cout << mat.to_string() << endl;
+    TransformMatrix mod = TransformMatrix::rotZ(0.2);
+    // mat.multiply(TransformMatrix::translation(25, 25, 0));
 
-    cout << "reached here" << endl;
-
+    mat.multiply(mod);
     mat.draw_edges(a, rgb(250, 250, 250));
-
-    cout << "also here" << endl;
     a.write_to_ppm("aaa.ppm");
-    return 0;
-}
+    a.clear();
 
-int _main() {
-    Screen a(50, 50);
-    int c = rgb(250, 250, 250);
-    a.line(0, 0, 50, 50, c);
-    a.line(0, 10, 25, 25, c);
-    EdgeMatrix mat;
-    mat.draw_edges(a, c);
-    cout << "reached here" << endl;
-    a.write_to_ppm("aaa.ppm");
+    mat.multiply(mod);
+    mat.draw_edges(a, rgb(250, 250, 250));
+    a.write_to_ppm("bbb.ppm");
+    a.clear();
+
+    mat.multiply(mod);
+    mat.draw_edges(a, rgb(250, 250, 250));
+    a.write_to_ppm("ccc.ppm");
+    a.clear();
     return 0;
 }
