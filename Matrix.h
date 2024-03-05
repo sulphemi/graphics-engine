@@ -26,7 +26,7 @@ public:
     /* ie. "this = other * this" (note ordering) */
     /* only accepts 4x4 arrays for other */
     /* but should in theory work for all valid matrix multiplications */
-    void multiply(Matrix other);
+    void multiply(const Matrix& other);
 
     /* return matrix as a string, mainly for debugging */
     /* only accepts Nx4 matrices*/
