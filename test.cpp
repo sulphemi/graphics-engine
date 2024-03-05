@@ -1,7 +1,9 @@
+// #include <QtWidgets>
 #include "Screen.h"
 #include "Matrix.h"
 #include "EdgeMatrix.h"
 #include "TransformMatrix.h"
+#include "TriMatrix.h"
 
 using namespace std;
 
@@ -30,27 +32,22 @@ void screen_test() {
 }
 
 int main() {
-    Screen a(50, 50);
-    EdgeMatrix mat;
-    mat.add_edge(0, 0, 0, 50, 50, 0);
-    mat.add_edge(25, 25, 10, 10, 10, 10);
+    Screen a(100, 100);
+    EdgeMatrix edges;
+    TriMatrix polys;
+    int ppmct = 0;
+    double theta = 3.1415926 / 10;
 
-    TransformMatrix mod = TransformMatrix::rotZ(0.2);
-    // mat.multiply(TransformMatrix::translation(25, 25, 0));
+    polys.add_tri(10, 10, 0, 90, 10, 0, 50, 90, 0);
 
-    mat.multiply(mod);
-    mat.draw_edges(a, rgb(250, 250, 250));
-    a.write_to_ppm("aaa.ppm");
-    a.clear();
+    Matrix trans = TransformMatrix::translation(-50, -50, 0);
+    trans.multiply(TransformMatrix::rotY(theta));
+    trans.multiply(TransformMatrix::translation(50, 50, 0));
 
-    mat.multiply(mod);
-    mat.draw_edges(a, rgb(250, 250, 250));
-    a.write_to_ppm("bbb.ppm");
-    a.clear();
-
-    mat.multiply(mod);
-    mat.draw_edges(a, rgb(250, 250, 250));
-    a.write_to_ppm("ccc.ppm");
-    a.clear();
-    return 0;
+    for (int i = 0; i < 10; i++) {
+        polys.multiply(trans);
+        polys.draw_edges(a, rgb(255, 255, 255));
+        a.write_to_ppm("tri_test_" + to_string(ppmct++) + ".ppm");
+        a.clear();
+    }
 }
