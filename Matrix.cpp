@@ -20,7 +20,7 @@ void Matrix::add_column(double a, double b, double c, double d) {
 /* ie. "this = other * this" (note ordering) */
 /* only accepts 4x4 arrays for other */
 /* but should in theory work for all valid matrix multiplications */
-void Matrix::multiply(Matrix& other) {
+void Matrix::multiply(const Matrix& other) {
     for (int i = 0; i < m.size(); ++i) {
         column new_col;
         for (int r = 0; r < COL_SIZE; ++r) {
